@@ -8,4 +8,39 @@
     <input type="text" placeholder="Digite o nome do produto" [(ngModel)]="nomeProduto">
     <button (click)="pesquisarProdutos()">Pesquisar</button>
   </div>
+
+  @if(listaProdutos().length > 0) {
+  <table>
+    <thead>
+      <tr>
+        <th>Nome do produto</th>
+        <th>Descrição</th>
+        <th>Preço</th>
+        <th>Quantidade</th>
+        <th>Total</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for(produto of listaProdutos(); track produto.id) {
+      <tr>
+        <td>{{produto.nome | uppercase}}</td>
+        <td>{{produto.descricao}}</td>
+        <td>{{produto.preco | currency}}</td>
+        <td>{{produto.quantidade}}</td>
+        <td>{{produto.total | currency}}</td>
+        <td>
+          <button (click)="editarProduto(produto.id)">Editar</button>
+          <button (click)="excluirProduto(produto.id)">Excluir</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6">Quantidade de produtos: {{listaProdutos().length}}</td>
+      </tr>
+    </tfoot>
+  </table>
+  }
 </div>

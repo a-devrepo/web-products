@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -19,12 +18,22 @@ export class App {
 
   nomeProduto: string = '';
 
+  listaProdutos = signal<any[]>([]);
+
   url: string = 'http://localhost:8081/api/v1/produtos/listar?nome=';
 
   pesquisarProdutos(){
-    this.httpClient.get(`${this.url}${this.nomeProduto}`)
+    this.httpClient.get<any[]>(`${this.url}${this.nomeProduto}`)
     .subscribe(data => {
-      console.log(data);
+      this.listaProdutos.set(data);
     });
+  }
+
+  excluirProduto(id:any){
+
+  }
+
+  editarProduto(id:any){
+
   }
 }
